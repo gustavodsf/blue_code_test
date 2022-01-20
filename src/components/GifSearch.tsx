@@ -1,33 +1,43 @@
 import { useState } from "react";
-
+import { useContext } from 'react';
+import { GifContext } from '../context/GifContext';
 
 import '../styles/gif_search.scss';
 
 function GifSearch(){
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [gifAmount, setGifAmount] = useState(10);
+  const { setGifAmount, setSearchTerm } = useContext(GifContext);
+
+  const [term, setTerm] = useState("");
+  const [amount, setAmount] = useState(10);
 
   const handleSearchEvent = () => {
-    console.log(searchTerm);
-    console.log(gifAmount);
+    setGifAmount(amount);
+    setSearchTerm(term);
   }
+
 
   return (
     <div className= "search">
-      <label htmlFor="searchTerm">Termo</label>
-      <input id="searchTerm" value={searchTerm} onChange={(e: any) => setSearchTerm(e.target.value)}/>
+      <div className="forTerm">
+        <label htmlFor="searchTerm">Term</label>
+        <input name="searchTerm" value={term} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTerm(e.target.value)} />
+      </div>
 
-
-      <label htmlFor="gifAmount">Quantidade</label>
-      <select id="gifAmount" value={gifAmount}  onChange={(e: any) => setGifAmount(e.target.value)}>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="40">30</option>
-      </select>
-
-      <button onClick = { () => handleSearchEvent() }>Buscar</button>
+      <div className="forAmount">
+        <label htmlFor="gifAmount">Amount</label>
+        <select id="gifAmount" value={amount}  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setAmount(parseInt(e.target.value, 10))}>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+        </select>
+      </div>
+      <div className="searchButton">
+        <button onClick = { () => handleSearchEvent() }>Buscar</button>
+      </div>
 
     </div>
   )

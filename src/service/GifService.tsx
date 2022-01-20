@@ -8,13 +8,26 @@ interface IGif {
   username: string;
 }
 
+interface IPagination {
+  total_count: number;
+  count: number;
+}
+
+interface IResponse {
+  gifs: IGif[];
+  pagination: IPagination;
+}
+
 class GifService {
 
-  async getTrending(): Promise<IGif[]> {
-    const response  = await api.get(`gifs/trending?api_key=hkaGTiiVm5J2Pq62ehav8jD0KXqm46b1&limit=20&offset=1&rating=G&lang=en`);
-    const gifs = Array<IGif>();
+  async getGif(term: string, amount: number, offset: number ): Promise<IResponse> {
 
-    response.data.data.forEach((gif: any) => {
+    const url = this.mountUrl(term, amount, offset);    
+    const response  = await api.get(url);
+    const gifs = Array<IGif>();
+    
+    const newLocal : any = response.data;
+    newLocal.data.forEach((gif: any): void => {
         gifs.push({
             type: gif.type,
             url: gif.images.original.url,
@@ -23,10 +36,21 @@ class GifService {
             username: gif.username
         })
     });
-    return gifs;
+    return { gifs, pagination: newLocal.pagination };
   }
 
 
+  mountUrl(term: string, amount: number, offset: number): string  {
+    // TODO - create a env file for that
+    const key = 'hkaGTiiVm5J2Pq62ehav8jD0KXqm46b1';
+    let url = 'gifs/';
+    if(term === '' || term === undefined || term === null) {
+      url += `trending?api_key=${key}&limit=${amount}&offset=${offset}&rating=G&lang=en`;
+    } else {
+      url += `search?api_key=${key}&q=${term}&limit=${amount}&offset=${offset}&rating=g&lang=en`;
+    }
+    return url;
+  }
 }
 
 export { GifService };

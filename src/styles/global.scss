@@ -38,10 +38,11 @@ button {
   height: 100%;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: auto 90%;
+  grid-template-rows: auto 85% auto;
   grid-template-areas: 
     'header'
     'main'
+    'footer';
 }
 
 #root > header {
@@ -52,4 +53,9 @@ button {
 #root > main {
   grid-area: main;
   padding: 15px 5px 10px 5px;
+}
+
+#root > footer {
+  grid-area: footer;
+  background: var(--background);
 }

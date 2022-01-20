@@ -1,21 +1,10 @@
-.search {
-
+.gif-footer{
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
-  color: #000;
-
-  .forTerm{
-    margin-right: 2rem;
-  }
-
-
-  .forAmount{
-    margin-right: 2rem;
-  }
-
+  padding: 10px;
 
   button {
     background: #000;
@@ -27,8 +16,10 @@
     transition: background 0.2s;
 
     &:hover {
-      background: #fff;
+      background: var(--yellow);
       color: #000;
+      font-weight: bold;
     }
   }
+
 }

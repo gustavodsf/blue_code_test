@@ -1,0 +1,19 @@
+.gifContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .gif{
+    width: 6rem;
+    height: 6rem;
+    padding: 0.2rem;
+    float: left;
+
+    img {
+      width: 95%;
+      height: 95%;
+    }
+     
+  }
+}
